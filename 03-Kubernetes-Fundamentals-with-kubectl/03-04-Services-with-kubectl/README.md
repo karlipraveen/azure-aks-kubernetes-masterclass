@@ -2,14 +2,23 @@
 
 ## Step-01: Introduction to Services
 - **Service Types**
-  1. ClusterIp
-  2. NodePort
-  3. LoadBalancer
-  4. ExternalName
-  5. Ingress
+  1. ClusterIp - Used for communication between applications inside k8s cluster. Ex: Frontend app accessing backend app. They need to comm. with each other. Now user want to access your application which is hosted in K8S cluster for that purpose you will deploy your frontend service, it maybe a NodePort service or LoadBalancer service or Ingress service.  
+
+  2. NodePort - Used for accessing apps outside of k8s cluster using Worker Node Ports. Ex: Accessing Frontend app on browser.
+
+  3. LoadBalancer - Primarily for Cloud Providers to integrate with their Load Balancer services. Ex: AWS Elastic LB.
+
+  4. ExternalName - To access externally hosted apps in k8s cluster. Ex: Access AWS RDS DB endpoint by application present inside K8S cluster.
+
+  5. Ingress - Ingress is an advanced LB which provides Context path based routing, SSL, SSL Redirect and many more. Ex: AWS ALB
+
 - We are going to look in to ClusterIP and LoadBalancer Service in this section with a detailed example. 
 - LoadBalancer Type is primarily for cloud providers and it will differ cloud to cloud, so we will do it accordingly (per cloud basis)
 - ExternalName doesn't have Imperative commands and we need to write YAML definition for the same, so we will look in to it as and when it is required in our course. 
+
+<img width="867" height="454" alt="image" src="https://github.com/user-attachments/assets/680cedc6-e153-4756-bfa1-3520d040dd87" />
+
+Let's consider in a K8S Cluster, you have deployed your backend app like some REST services app. This Backend app is currently using RDS DB which is in AWS. So if you want to access that from inside your K8S Cluster. So you need to define a DB ExternalName service. In the same way you have your frontend app need to access your backend app. So for that purpose, you need to define your ClusterIP service in your K8S cluster. So based on the environment you are using and whatever is applicable for you, accordingly, you can deploy the service. So in this way, the services can be leveraged for us inside K8S cluster, in combination with external apps or internal apps.
 
 ## Step-02: ClusterIP Service - Backend Application Setup
 - Create a deployment for Backend Application (Spring Boot REST Application)
