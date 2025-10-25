@@ -7,7 +7,7 @@
 
 ## Step-01: Updating Application version V1 to V2 using "Set Image" Option
 ### Update Deployment
-- **Observation:** Please Check the container name in `spec.container.name` yaml output and make a note of it and 
+- **Observation:** Please Check the container name `kubenginx` in `spec.container.name` yaml output and make a note of it and 
 replace in `kubectl set image` command <Container-Name>
 ```
 # Get Container Name from current deployment
@@ -29,7 +29,7 @@ kubectl get deploy
 ### Describe Deployment
 - **Observation:**
   - Verify the Events and understand that Kubernetes by default do  "Rolling Update"  for new application releases. 
-  - With that said, we will not have downtime for our application.
+  - With that said, we will not have downtime for our application because Rolling Update fasion, it has done the entire update like first it creates new replicaset and created a new pod inside that then immediately it will bring down from old replicaset, scale down replica from the old replicaset.
 ```
 # Descibe Deployment
 kubectl describe deployment my-first-deployment
@@ -40,6 +40,7 @@ kubectl describe deployment my-first-deployment
 # Verify ReplicaSet
 kubectl get rs
 ```
+- You will see 2 replicasets - Old (my-first-deployment-7d7cd6ff7c) & New (my-first-deployment-c45c6f896) having Desired/Current/Ready is 2.
 
 ### Verify Pods
 - **Observation:** Pod template hash label of new replicaset should be present for PODs letting us 
@@ -48,7 +49,7 @@ know these pods belong to new ReplicaSet.
 # List Pods
 kubectl get po
 ```
-
+- You will see 2 Pods are in Running Status and Ready.
 ### Verify Rollout History of a Deployment
 - **Observation:** We have the rollout history, so we can switch back to older revisions using 
 revision history available to us.  
